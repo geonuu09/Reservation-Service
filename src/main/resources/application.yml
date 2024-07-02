@@ -1,0 +1,45 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mariadb://localhost:3306/reservation_sys
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: reservation_user
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+jwt:
+  secret: your_jwt_secret_key_here
+  expiration: 86400000 # 1?
+
+server:
+  port: 8080
