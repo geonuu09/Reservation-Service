@@ -25,12 +25,13 @@ public class StoreService {
                 .orElseThrow(() -> new RuntimeException("Store not found"));
         return convertToDTO(store);
     }
-
-    public List<StoreDTO> getAllStores() {
-        return storeRepository.findAll().stream()
+    public List<StoreDTO> searchStoresByName(String name) {
+        List<Store> stores = storeRepository.findByStoreNameContainingIgnoreCase(name);
+        return stores.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
 
     public StoreDTO updateStore(Long id, StoreDTO storeDTO) {
         Store store = storeRepository.findById(id)
@@ -64,6 +65,8 @@ public class StoreService {
                 store.getCategory(),
                 store.getOpenTime(),
                 store.getCloseTime(),
+                store.getPhoneNumber(),
+                store.getAmenities(),
                 store.getCreatedAt(),
                 store.getUpdatedAt()
         );

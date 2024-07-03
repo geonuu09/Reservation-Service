@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "store")
@@ -25,9 +26,15 @@ public class Store extends BaseEntity {
     @Column(length = 20)
     private String category;
 
+    private String phoneNumber;
+
+    @ElementCollection
+    private List<String> amenities; // 편의 시설 (wifi, parking ..)
+
     @Column(name = "open_time")
     private LocalTime openTime;
 
     @Column(name = "close_time")
     private LocalTime closeTime;
+
 }

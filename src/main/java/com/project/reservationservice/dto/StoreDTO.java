@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +21,8 @@ public class StoreDTO {
     private String category;
     private LocalTime openTime;
     private LocalTime closeTime;
+    private String phoneNumber;
+    private List<String> amenities;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
