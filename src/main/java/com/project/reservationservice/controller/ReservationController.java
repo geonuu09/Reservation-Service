@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -62,11 +61,17 @@ public class ReservationController {
      * 예약 취소 API
      * @param id
      * @return 200 ok
+     *
+     * Put 요청 메소드를 사용하는 이유는 '취소'라는 것이 상태를 변형하는 것이기 때문이다. 그래서 delete를 사용하지않음.
      */
     @PutMapping("/{id}/cancel")
     public ResponseEntity<ReservationDTO> cancelReservation(@PathVariable Long id) {
-        ReservationDTO cancelledReservation = reservationService.cancelReservation(id);
-        return ResponseEntity.ok(cancelledReservation);
+        try {
+            ReservationDTO cancelledReservation = reservationService.cancelReservation(id);
+            return ResponseEntity.ok(cancelledReservation);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
