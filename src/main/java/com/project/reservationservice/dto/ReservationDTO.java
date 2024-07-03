@@ -17,6 +17,4 @@ public class ReservationDTO {
     private LocalDate reservationDate;
     private Reservation.ReservationStatus status;
 
-
-
 }

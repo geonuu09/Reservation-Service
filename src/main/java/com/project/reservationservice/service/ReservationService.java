@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class ReservationService {
     }
 
     // 특정 매장의 특정 시간대 예약 목록 조회
-    public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDateTime start, LocalDateTime end) {
+    public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate start, LocalDate end) {
         return reservationRepository.findByStoreIdAndReservationDateBetween(storeId, start, end)
                 .stream()
                 .map(this::convertToDTO)

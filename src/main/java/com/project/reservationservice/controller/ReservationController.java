@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -67,8 +68,9 @@ public class ReservationController {
     @GetMapping("/store/{storeId}")
     public ResponseEntity<List<ReservationDTO>> getReservationsForStore(
             @PathVariable Long storeId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
         List<ReservationDTO> reservations = reservationService.getReservationsForStore(storeId, start, end);
         return ResponseEntity.ok(reservations);
     }
