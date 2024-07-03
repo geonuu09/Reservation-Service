@@ -56,6 +56,27 @@ public class ReservationService {
         return convertToDTO(reservationRepository.save(reservation));
     }
 
+    public ReservationDTO cancelReservation(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+        // 예약 상태 확인
+        if (reservation.getStatus() == Reservation.ReservationStatus.CANCELLED) {
+            throw new IllegalStateException("Reservation is already cancelled");
+        }
+
+        // 현재 시간이 예약 시간 이후인지 확인
+        if (LocalDate.now().isAfter(reservation.getReservationDate())) {
+            throw new IllegalStateException("Cannot cancel past reservations");
+        }
+
+        reservation.setStatus(Reservation.ReservationStatus.CANCELLED);
+        Reservation updatedReservation = reservationRepository.save(reservation);
+
+        return convertToDTO(updatedReservation);
+    }
+
+
     // 특정 매장의 특정 시간대 예약 목록 조회
     public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate start, LocalDate end) {
         return reservationRepository.findByStoreIdAndReservationDateBetween(storeId, start, end)

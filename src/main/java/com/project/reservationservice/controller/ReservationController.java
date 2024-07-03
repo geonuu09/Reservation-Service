@@ -59,6 +59,17 @@ public class ReservationController {
     }
 
     /**
+     * 예약 취소 API
+     * @param id
+     * @return 200 ok
+     */
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<ReservationDTO> cancelReservation(@PathVariable Long id) {
+        ReservationDTO cancelledReservation = reservationService.cancelReservation(id);
+        return ResponseEntity.ok(cancelledReservation);
+    }
+
+    /**
      * 특정 매장의 특정 시간대 예약 목록 조회 API
      * @param storeId 조회할 매장의 ID
      * @param start 조회할 시간대의 시작 시간
