@@ -25,4 +25,5 @@ public class StoreDTO {
     private List<String> amenities;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Long kioskId;
 }

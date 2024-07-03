@@ -69,7 +69,8 @@ public class StoreService {
                 store.getPhoneNumber(),
                 store.getAmenities(),
                 store.getCreatedAt(),
-                store.getUpdatedAt()
+                store.getUpdatedAt(),
+                store.getKioskId()
         );
     }
 

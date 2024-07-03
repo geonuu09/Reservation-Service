@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -26,6 +28,9 @@ public class Reservation extends BaseEntity {
     @Column(nullable = false)
     private LocalDate reservationDate;
 
+    @Column(nullable = false)
+    private LocalTime reservationTime;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReservationStatus status;
@@ -38,6 +43,8 @@ public class Reservation extends BaseEntity {
         CANCELLED // 고객 취소, 담당자 취소 시
     }
 
-
+    public LocalDateTime getReservationDateTime() {
+        return LocalDateTime.of(this.reservationDate, this.reservationTime);
+    }
 
 }

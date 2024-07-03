@@ -40,4 +40,9 @@ public class Store extends BaseEntity {
     @Column(name = "close_time")
     private LocalTime closeTime;
 
+    // kiosk id = store id
+    public Long getKioskId() {
+        return getId();
+    }
+
 }

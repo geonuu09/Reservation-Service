@@ -77,17 +77,15 @@ public class ReservationController {
     /**
      * 특정 매장의 특정 시간대 예약 목록 조회 API
      * @param storeId 조회할 매장의 ID
-     * @param start 조회할 시간대의 시작 시간
-     * @param end 조회할 시간대의 종료 시간
+     * @param date 조회할 날짜
      * @return 조회된 예약 목록과 HTTP 상태 코드 200 (OK)
      */
     @GetMapping("/store/{storeId}")
     public ResponseEntity<List<ReservationDTO>> getReservationsForStore(
             @PathVariable Long storeId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
-
-        List<ReservationDTO> reservations = reservationService.getReservationsForStore(storeId, start, end);
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<ReservationDTO> reservations = reservationService.getReservationsForStore(storeId, date);
         return ResponseEntity.ok(reservations);
     }
+
 }

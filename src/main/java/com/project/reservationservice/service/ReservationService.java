@@ -33,6 +33,7 @@ public class ReservationService {
         reservation.setStore(store);
         reservation.setMember(member);
         reservation.setReservationDate(reservationDTO.getReservationDate());
+        reservation.setReservationTime(reservationDTO.getReservationTime());
         reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
 
         Reservation savedReservation = reservationRepository.save(reservation);
@@ -77,8 +78,8 @@ public class ReservationService {
 
 
     // 특정 매장의 특정 시간대 예약 목록 조회
-    public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate start, LocalDate end) {
-        return reservationRepository.findByStoreIdAndReservationDateBetween(storeId, start, end)
+    public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate date) {
+        return reservationRepository.findByStoreIdAndReservationDate(storeId, date)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -90,6 +91,7 @@ public class ReservationService {
         dto.setStoreId(reservation.getStore().getId());
         dto.setMemberId(reservation.getMember().getId());
         dto.setReservationDate(reservation.getReservationDate());
+        dto.setReservationTime(reservation.getReservationTime());
         dto.setStatus(reservation.getStatus());
         return dto;
     }
