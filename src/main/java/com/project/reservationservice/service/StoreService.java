@@ -51,6 +51,7 @@ public class StoreService {
         store.setStoreDesc(storeDTO.getStoreDesc());
         store.setStoreAddress(storeDTO.getStoreAddress());
         store.setCategory(storeDTO.getCategory());
+        store.setPhoneNumber(storeDTO.getPhoneNumber());
         store.setOpenTime(storeDTO.getOpenTime());
         store.setCloseTime(storeDTO.getCloseTime());
         return store;

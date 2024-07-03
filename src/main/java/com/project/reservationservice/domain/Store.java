@@ -29,7 +29,10 @@ public class Store extends BaseEntity {
     private String phoneNumber;
 
     @ElementCollection
-    private List<String> amenities; // 편의 시설 (wifi, parking ..)
+    @CollectionTable(name = "store_amenities", joinColumns = @JoinColumn(name = "store_id"))
+    @Column(name = "amenity")
+    private List<String> amenities;
+
 
     @Column(name = "open_time")
     private LocalTime openTime;
