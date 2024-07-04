@@ -23,7 +23,8 @@ public class ReservationController {
 
     /**
      * 예약 생성 API
-     * @param reservationDTO 예약을 생성하는 데 필요한 정보
+     * POST /api/reservations
+     * @param reservationDTO 생성할 예약 정보
      * @return 생성된 예약 정보와 HTTP 상태 코드 201 (CREATED)
      */
     @PostMapping
@@ -34,6 +35,7 @@ public class ReservationController {
 
     /**
      * 예약 조회 API
+     * GET /api/reservations/{id}
      * @param id 조회할 예약의 ID
      * @return 조회된 예약 정보와 HTTP 상태 코드 200 (OK)
      */
@@ -45,6 +47,7 @@ public class ReservationController {
 
     /**
      * 예약 상태 업데이트 API
+     * PUT /api/reservations/{id}/status?status={status}
      * @param id 업데이트할 예약의 ID
      * @param status 업데이트할 예약 상태
      * @return 업데이트된 예약 정보와 HTTP 상태 코드 200 (OK)
@@ -59,10 +62,9 @@ public class ReservationController {
 
     /**
      * 예약 취소 API
-     * @param id
-     * @return 200 ok
-     *
-     * Put 요청 메소드를 사용하는 이유는 '취소'라는 것이 상태를 변형하는 것이기 때문이다. 그래서 delete를 사용하지않음.
+     * PUT /api/reservations/{id}/cancel
+     * @param id 취소할 예약의 ID
+     * @return 취소된 예약 정보와 HTTP 상태 코드 200 (OK) 또는 404 (Not Found)
      */
     @PutMapping("/{id}/cancel")
     public ResponseEntity<ReservationDTO> cancelReservation(@PathVariable Long id) {
@@ -75,9 +77,10 @@ public class ReservationController {
     }
 
     /**
-     * 특정 매장의 특정 시간대 예약 목록 조회 API
+     * 특정 매장의 특정 날짜 예약 목록 조회 API
+     * GET /api/reservations/store/{storeId}?date={date}
      * @param storeId 조회할 매장의 ID
-     * @param date 조회할 날짜
+     * @param date 조회할 날짜 (ISO DATE 형식: yyyy-MM-dd)
      * @return 조회된 예약 목록과 HTTP 상태 코드 200 (OK)
      */
     @GetMapping("/store/{storeId}")
@@ -89,9 +92,10 @@ public class ReservationController {
     }
 
     /**
-     * 관리자 권한 - 예약 상태를 COMPLETED로 변경 -> 손님 리뷰 작성가능
-     * @param id
-     * @return
+     * 관리자 권한 - 예약 상태를 COMPLETED로 변경 API
+     * PUT /api/reservations/{id}/complete
+     * @param id 완료할 예약의 ID
+     * @return 완료된 예약 정보와 HTTP 상태 코드 200 (OK)
      */
     @PutMapping("/{id}/complete")
 //    @PreAuthorize("hasRole('ADMIN')") // Spring Security를 사용한 권한 확인

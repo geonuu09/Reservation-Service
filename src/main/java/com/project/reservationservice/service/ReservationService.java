@@ -82,8 +82,8 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
-        if (reservation.getStatus() != Reservation.ReservationStatus.CONFIRMED) {
-            throw new IllegalStateException("Only confirmed reservations can be completed");
+        if (reservation.getStatus() != Reservation.ReservationStatus.ARRIVED) {
+            throw new IllegalStateException("Only arrived reservations can be completed");
         }
 
         reservation.setStatus(Reservation.ReservationStatus.COMPLETED);

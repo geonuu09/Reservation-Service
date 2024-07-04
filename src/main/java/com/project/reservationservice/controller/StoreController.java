@@ -18,7 +18,8 @@ public class StoreController {
 
     /**
      * 매장 생성 API
-     * @param storeDTO 매장 생성에 필요한 정보
+     * POST /api/stores
+     * @param storeDTO 생성할 매장 정보
      * @return 생성된 매장 정보와 HTTP 상태 코드 201 (CREATED)
      */
     @PostMapping
@@ -29,6 +30,7 @@ public class StoreController {
 
     /**
      * 매장 상세 정보 조회 API
+     * GET /api/stores/{id}
      * @param id 조회할 매장의 ID
      * @return 매장 상세 정보와 HTTP 상태 코드 200 (OK)
      */
@@ -40,20 +42,21 @@ public class StoreController {
 
     /**
      * 매장 이름으로 검색 API
-     *
+     * GET /api/stores/search?name={name}
      * @param name 검색할 매장 이름
      * @return 검색된 매장 목록과 HTTP 상태 코드 200 (OK)
      */
-//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
     public ResponseEntity<List<StoreDTO>> searchStoresByName(@RequestParam(name = "name") String name) {
         List<StoreDTO> stores = storeService.searchStoresByName(name);
         return ResponseEntity.ok(stores);
     }
+
     /**
      * 매장 수정 API
+     * PUT /api/stores/{id}
      * @param id 수정할 매장의 ID
-     * @param storeDTO 매장 수정에 필요한 정보
+     * @param storeDTO 수정할 매장 정보
      * @return 수정된 매장 정보와 HTTP 상태 코드 200 (OK)
      */
     @PutMapping("/{id}")
@@ -64,6 +67,7 @@ public class StoreController {
 
     /**
      * 매장 삭제 API
+     * DELETE /api/stores/{id}
      * @param id 삭제할 매장의 ID
      * @return HTTP 상태 코드 204 (No Content)
      */
@@ -72,6 +76,4 @@ public class StoreController {
         storeService.deleteStore(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
