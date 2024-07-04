@@ -24,8 +24,8 @@ public class MemberService {
         MemberEntity member = new MemberEntity();
         member.setEmail(memberDTO.getEmail());
         member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
-        member.setRole(memberDTO.getUsername());
-        member.setRole(MemberEntity.MemberRole.ROLE_USER);
+        member.setPhonenumber(memberDTO.getPhonenumber());
+        member.setRole(memberDTO.getRole() != null ? memberDTO.getRole() : MemberEntity.MemberRole.ROLE_USER);
 
         MemberEntity savedMember = memberRepository.save(member);
         return convertToDTO(savedMember);
