@@ -1,9 +1,12 @@
 package com.project.reservationservice.service;
 
+import com.project.reservationservice.domain.MemberEntity;
 import com.project.reservationservice.domain.Store;
 import com.project.reservationservice.DTO.StoreDTO;
+import com.project.reservationservice.repository.MemberRepository;
 import com.project.reservationservice.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,21 +17,30 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StoreService {
-
+    private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
-    public StoreDTO createStore(StoreDTO storeDTO) throws AccessDeniedException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.getAuthorities().stream()
-                .anyMatch(a->a.getAuthority().equals("ROLE_PARTNER"))) {
+    public StoreDTO createStore(StoreDTO storeDTO, String email) {
+        log.info("매장 생성 서비스 시작: {}, 요청자: {}", storeDTO.getStoreName(), email);
+
+        MemberEntity member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> {
+                    log.error("회원을 찾을 수 없음: {}", email);
+                    return new RuntimeException("Member not found");
+                });
+
+        if (member.getRole() != MemberEntity.MemberRole.ROLE_PARTNER) {
+            log.warn("권한 없음: {}", email);
+            throw new RuntimeException("Only partners can create stores");
+        }
 
         Store store = convertToEntity(storeDTO);
+        store.setOwner(member);
         Store savedStore = storeRepository.save(store);
+        log.info("매장 생성 완료: {}", savedStore.getStoreName());
         return convertToDTO(savedStore);
-        } else {
-            throw new AccessDeniedException("Access denied");
-        }
     }
 
     public StoreDTO getStore(Long id) {
@@ -71,6 +83,7 @@ public class StoreService {
     private StoreDTO convertToDTO(Store store) {
         return new StoreDTO(
                 store.getId(),
+                store.getOwner().toString(),
                 store.getStoreName(),
                 store.getStoreDesc(),
                 store.getStoreAddress(),

@@ -1,4 +1,4 @@
-package com.project.reservationservice.dto;
+package com.project.reservationservice.DTO;
 
 import com.project.reservationservice.domain.MemberEntity;
 import lombok.AllArgsConstructor;

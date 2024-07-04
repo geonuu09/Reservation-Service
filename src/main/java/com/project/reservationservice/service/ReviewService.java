@@ -3,7 +3,7 @@ package com.project.reservationservice.service;
 import com.project.reservationservice.domain.MemberEntity;
 import com.project.reservationservice.domain.Reservation;
 import com.project.reservationservice.domain.Review;
-import com.project.reservationservice.dto.ReviewDTO;
+import com.project.reservationservice.DTO.ReviewDTO;
 import com.project.reservationservice.repository.MemberRepository;
 import com.project.reservationservice.repository.ReservationRepository;
 import com.project.reservationservice.repository.ReviewRepository;

@@ -3,7 +3,7 @@ package com.project.reservationservice.service;
 import com.project.reservationservice.domain.MemberEntity;
 import com.project.reservationservice.domain.Reservation;
 import com.project.reservationservice.domain.Store;
-import com.project.reservationservice.dto.ReservationDTO;
+import com.project.reservationservice.DTO.ReservationDTO;
 import com.project.reservationservice.repository.MemberRepository;
 import com.project.reservationservice.repository.ReservationRepository;
 import com.project.reservationservice.repository.StoreRepository;

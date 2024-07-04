@@ -3,14 +3,15 @@ package com.project.reservationservice.controller;
 import com.project.reservationservice.DTO.StoreDTO;
 import com.project.reservationservice.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/stores")
@@ -25,9 +26,11 @@ public class StoreController {
      * @return 생성된 매장 정보와 HTTP 상태 코드 201 (CREATED)
      */
     @PostMapping
-    @PreAuthorize("hasRole('PARTNER')")
-    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO) throws AccessDeniedException {
-        StoreDTO createdStore = storeService.createStore(storeDTO);
+//    @PreAuthorize("hasRole('PARTNER')")
+    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO, @RequestParam String email) {
+        log.info("매장 생성 요청: {}, 요청자: {}", storeDTO.getStoreName(), email);
+        StoreDTO createdStore = storeService.createStore(storeDTO,email);
+        log.info("매장 생성 성공: {}", createdStore.getStoreName());
         return new ResponseEntity<>(createdStore, HttpStatus.CREATED);
     }
 

@@ -1,5 +1,6 @@
 package com.project.reservationservice.DTO;
 
+import com.project.reservationservice.domain.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class StoreDTO {
     private Long id;
     private String storeName;
+    private String ownerEmail;
     private String storeDesc;
     private String storeAddress;
     private String category;
@@ -26,4 +28,5 @@ public class StoreDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long kioskId;
+
 }

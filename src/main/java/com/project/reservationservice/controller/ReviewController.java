@@ -1,7 +1,6 @@
 package com.project.reservationservice.controller;
 
-import com.project.reservationservice.dto.ReservationDTO;
-import com.project.reservationservice.dto.ReviewDTO;
+import com.project.reservationservice.DTO.ReviewDTO;
 import com.project.reservationservice.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

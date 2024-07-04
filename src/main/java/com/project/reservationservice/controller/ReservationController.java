@@ -1,7 +1,7 @@
 package com.project.reservationservice.controller;
 
 import com.project.reservationservice.domain.Reservation;
-import com.project.reservationservice.dto.ReservationDTO;
+import com.project.reservationservice.DTO.ReservationDTO;
 import com.project.reservationservice.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;

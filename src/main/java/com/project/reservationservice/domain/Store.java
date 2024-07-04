@@ -15,6 +15,10 @@ public class Store extends BaseEntity {
     @Column(name = "store_name", length = 20, nullable = false)
     private String storeName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private MemberEntity owner;
+
     // 스토어 설명
     @Column(name = "store_desc", length = 255)
     private String storeDesc;
