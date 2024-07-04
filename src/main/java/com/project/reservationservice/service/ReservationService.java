@@ -76,6 +76,22 @@ public class ReservationService {
         return convertToDTO(updatedReservation);
     }
 
+    // 예약상태 변경 (ARRIVED -> COMPLETED)
+    @Transactional
+    public ReservationDTO completeReservation(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+        if (reservation.getStatus() != Reservation.ReservationStatus.CONFIRMED) {
+            throw new IllegalStateException("Only confirmed reservations can be completed");
+        }
+
+        reservation.setStatus(Reservation.ReservationStatus.COMPLETED);
+        Reservation savedReservation = reservationRepository.save(reservation);
+        return convertToDTO(savedReservation);
+    }
+
+
 
     // 특정 매장의 특정 시간대 예약 목록 조회
     public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate date) {
@@ -84,6 +100,7 @@ public class ReservationService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
 
     private ReservationDTO convertToDTO(Reservation reservation) {
         ReservationDTO dto = new ReservationDTO();

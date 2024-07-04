@@ -88,4 +88,15 @@ public class ReservationController {
         return ResponseEntity.ok(reservations);
     }
 
+    /**
+     * 관리자 권한 - 예약 상태를 COMPLETED로 변경 -> 손님 리뷰 작성가능
+     * @param id
+     * @return
+     */
+    @PutMapping("/{id}/complete")
+//    @PreAuthorize("hasRole('ADMIN')") // Spring Security를 사용한 권한 확인
+    public ResponseEntity<ReservationDTO> completeReservation(@PathVariable Long id) {
+        ReservationDTO completedReservation = reservationService.completeReservation(id);
+        return ResponseEntity.ok(completedReservation);
+    }
 }
