@@ -4,7 +4,11 @@ import com.project.reservationservice.domain.Store;
 import com.project.reservationservice.DTO.StoreDTO;
 import com.project.reservationservice.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,10 +18,17 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
 
-    public StoreDTO createStore(StoreDTO storeDTO) {
+    public StoreDTO createStore(StoreDTO storeDTO) throws AccessDeniedException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getAuthorities().stream()
+                .anyMatch(a->a.getAuthority().equals("ROLE_PARTNER"))) {
+
         Store store = convertToEntity(storeDTO);
         Store savedStore = storeRepository.save(store);
         return convertToDTO(savedStore);
+        } else {
+            throw new AccessDeniedException("Access denied");
+        }
     }
 
     public StoreDTO getStore(Long id) {

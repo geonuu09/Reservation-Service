@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -98,7 +99,7 @@ public class ReservationController {
      * @return 완료된 예약 정보와 HTTP 상태 코드 200 (OK)
      */
     @PutMapping("/{id}/complete")
-//    @PreAuthorize("hasRole('ADMIN')") // Spring Security를 사용한 권한 확인
+    @PreAuthorize("hasRole('PARTNER')") // Spring Security를 사용한 권한 확인
     public ResponseEntity<ReservationDTO> completeReservation(@PathVariable Long id) {
         ReservationDTO completedReservation = reservationService.completeReservation(id);
         return ResponseEntity.ok(completedReservation);

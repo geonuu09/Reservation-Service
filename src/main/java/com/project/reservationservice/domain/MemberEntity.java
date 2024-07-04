@@ -10,14 +10,23 @@ import lombok.*;
 @Entity
 public class MemberEntity extends BaseEntity {
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String phonenumber;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column(nullable = false)
+    private MemberRole role;
 
-    public enum UserRole {
+    public enum MemberRole {
         ROLE_USER, ROLE_PARTNER
     }
 }

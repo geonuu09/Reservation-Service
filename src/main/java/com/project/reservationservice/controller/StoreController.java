@@ -5,8 +5,10 @@ import com.project.reservationservice.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,8 @@ public class StoreController {
      * @return 생성된 매장 정보와 HTTP 상태 코드 201 (CREATED)
      */
     @PostMapping
-    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO) {
+    @PreAuthorize("hasRole('PARTNER')")
+    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO) throws AccessDeniedException {
         StoreDTO createdStore = storeService.createStore(storeDTO);
         return new ResponseEntity<>(createdStore, HttpStatus.CREATED);
     }
