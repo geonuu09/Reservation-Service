@@ -1,6 +1,7 @@
 package com.project.reservationservice.controller;
 
 import com.project.reservationservice.service.ArrivalService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/arrival")
 @RequiredArgsConstructor
+@Tag(name = "Arrived Kiosk", description = "키오스크 도착확인 API")
 public class ArrivalController {
 
     private final ArrivalService arrivalService;

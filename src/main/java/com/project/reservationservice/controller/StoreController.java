@@ -2,6 +2,7 @@ package com.project.reservationservice.controller;
 
 import com.project.reservationservice.DTO.StoreDTO;
 import com.project.reservationservice.service.StoreService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/stores")
+@Tag(name = "STORE", description = "스토어 CRUD API")
 public class StoreController {
 
     private final StoreService storeService;

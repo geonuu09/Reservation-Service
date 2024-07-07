@@ -41,7 +41,8 @@ spring:
   jwt:
     secret: amF2YSBjb2RpbmcgcmVzZXJ2YXRpb24gdGFibGUgc2VydmljZSBzeXN0ZW0gc3ByaW5nIGJvb3QgdXNlIHByb2plY3QK
 
-
-
+---
+springdoc.api-docs.path: /v3/api-docs
+springdoc.swagger-ui.path: /swagger-ui.html
 
 

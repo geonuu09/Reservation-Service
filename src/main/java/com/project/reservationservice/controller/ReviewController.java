@@ -2,6 +2,7 @@ package com.project.reservationservice.controller;
 
 import com.project.reservationservice.DTO.ReviewDTO;
 import com.project.reservationservice.service.ReviewService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reviews")
+@Tag(name = "REVIEW", description = "리뷰 API")
 public class ReviewController {
 
     private final ReviewService reviewService;

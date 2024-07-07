@@ -3,6 +3,7 @@ package com.project.reservationservice.controller;
 import com.project.reservationservice.DTO.SignInRequestDTO;
 import com.project.reservationservice.DTO.SignUpRequestDTO;
 import com.project.reservationservice.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @Slf4j
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "회원 등록 및 로그인 API")
 public class AuthController {
     private final AuthService authService;
 

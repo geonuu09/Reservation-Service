@@ -4,6 +4,7 @@ import com.project.reservationservice.domain.Reservation;
 import com.project.reservationservice.DTO.ReservationDTO;
 import com.project.reservationservice.service.ReservationService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,12 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/reservations")
 @RequiredArgsConstructor
+@Tag(name = "Reservation", description = "예약 CRUD API")
 public class ReservationController {
 
     private final ReservationService reservationService;
 
     /**
-     * 예약 생성 API
+     * 예약 생성 API {PARTNER 권한}
      * POST /api/reservations
      * @param reservationDTO 생성할 예약 정보
      * @return 생성된 예약 정보와 HTTP 상태 코드 201 (CREATED)
@@ -93,7 +95,7 @@ public class ReservationController {
     }
 
     /**
-     * 관리자 권한 - 예약 상태를 COMPLETED로 변경 API
+     * 예약 상태를 COMPLETED로 변경 API {PARTNER 권한}
      * PUT /api/reservations/{id}/complete
      * @param id 완료할 예약의 ID
      * @return 완료된 예약 정보와 HTTP 상태 코드 200 (OK)
