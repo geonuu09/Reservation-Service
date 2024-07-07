@@ -1,15 +1,12 @@
 package com.project.reservationservice.DTO;
 
-import com.project.reservationservice.domain.MemberEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

@@ -7,11 +7,8 @@ import com.project.reservationservice.repository.MemberRepository;
 import com.project.reservationservice.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,17 +24,26 @@ public class StoreService {
 
         MemberEntity member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> {
-                    log.error("회원을 찾을 수 없음: {}", email);
+                    log.error("사용자를 찾을 수 없음: {}", email);
                     return new RuntimeException("Member not found");
                 });
+        log.info("사용자 확인 완료: {}, 역할: {}", member.getEmail(), member.getRole());
 
         if (member.getRole() != MemberEntity.MemberRole.ROLE_PARTNER) {
-            log.warn("권한 없음: {}", email);
+            log.error("권한 없음: {}, 현재 역할: {}", email, member.getRole());
             throw new RuntimeException("Only partners can create stores");
         }
 
-        Store store = convertToEntity(storeDTO);
-        store.setOwner(member);
+        Store store = Store.builder()
+                .storeName(storeDTO.getStoreName())
+                .storeDesc(storeDTO.getStoreDesc())
+                .storeAddress(storeDTO.getStoreAddress())
+                .category(storeDTO.getCategory())
+                .openTime(storeDTO.getOpenTime())
+                .closeTime(storeDTO.getCloseTime())
+                .phoneNumber(storeDTO.getPhoneNumber())
+                .amenities(storeDTO.getAmenities())
+                .build();
         Store savedStore = storeRepository.save(store);
         log.info("매장 생성 완료: {}", savedStore.getStoreName());
         return convertToDTO(savedStore);
@@ -68,35 +74,23 @@ public class StoreService {
         storeRepository.deleteById(id);
     }
 
-    private Store convertToEntity(StoreDTO storeDTO) {
-        Store store = new Store();
-        store.setStoreName(storeDTO.getStoreName());
-        store.setStoreDesc(storeDTO.getStoreDesc());
-        store.setStoreAddress(storeDTO.getStoreAddress());
-        store.setCategory(storeDTO.getCategory());
-        store.setPhoneNumber(storeDTO.getPhoneNumber());
-        store.setOpenTime(storeDTO.getOpenTime());
-        store.setCloseTime(storeDTO.getCloseTime());
-        return store;
+    private StoreDTO convertToDTO(Store store) {
+        return StoreDTO.builder()
+                .id(store.getId())
+                .storeName(store.getStoreName())
+                .storeDesc(store.getStoreDesc())
+                .storeAddress(store.getStoreAddress())
+                .category(store.getCategory())
+                .openTime(store.getOpenTime())
+                .closeTime(store.getCloseTime())
+                .phoneNumber(store.getPhoneNumber())
+                .amenities(store.getAmenities())
+                .createdAt(store.getCreatedAt())
+                .updatedAt(store.getUpdatedAt())
+                .kioskId(store.getKioskId())
+                .build();
     }
 
-    private StoreDTO convertToDTO(Store store) {
-        return new StoreDTO(
-                store.getId(),
-                store.getOwner().toString(),
-                store.getStoreName(),
-                store.getStoreDesc(),
-                store.getStoreAddress(),
-                store.getCategory(),
-                store.getOpenTime(),
-                store.getCloseTime(),
-                store.getPhoneNumber(),
-                store.getAmenities(),
-                store.getCreatedAt(),
-                store.getUpdatedAt(),
-                store.getKioskId()
-        );
-    }
 
     private void updateStoreFromDTO(Store store, StoreDTO storeDTO) {
         store.setStoreName(storeDTO.getStoreName());

@@ -36,10 +36,12 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: false
+---
+spring:
+  jwt:
+    secret: amF2YSBjb2RpbmcgcmVzZXJ2YXRpb24gdGFibGUgc2VydmljZSBzeXN0ZW0gc3ByaW5nIGJvb3QgdXNlIHByb2plY3QK
 
-jwt:
-  secret: your_jwt_secret_key_here
-  expiration: 86400000 # 1?
 
-server:
-  port: 8080
+
+
+
