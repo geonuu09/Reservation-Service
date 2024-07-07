@@ -25,6 +25,7 @@ public class StoreController {
     /**
      * 매장 생성 API
      * POST /api/stores
+     *
      * @param storeDTO 생성할 매장 정보
      * @return 생성된 매장 정보와 HTTP 상태 코드 201 (CREATED)
      */
@@ -44,8 +45,38 @@ public class StoreController {
     }
 
     /**
+     * 매장 수정 API
+     * PUT /api/stores/{id}
+     *
+     * @param id       수정할 매장의 ID
+     * @param storeDTO 수정할 매장 정보
+     * @return 수정된 매장 정보와 HTTP 상태 코드 200 (OK)
+     */
+    @PreAuthorize("hasRole('PARTNER')")
+    @PutMapping("/{id}")
+    public ResponseEntity<StoreDTO> updateStore(@PathVariable Long id, @RequestBody StoreDTO storeDTO) {
+        StoreDTO updatedStore = storeService.updateStore(id, storeDTO);
+        return ResponseEntity.ok(updatedStore);
+    }
+
+    /**
+     * 매장 삭제 API
+     * DELETE /api/stores/{id}
+     *
+     * @param id 삭제할 매장의 ID
+     * @return HTTP 상태 코드 204 (No Content)
+     */
+    @PreAuthorize("hasRole('PARTNER')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStore(@PathVariable Long id) {
+        storeService.deleteStore(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
      * 매장 상세 정보 조회 API
      * GET /api/stores/{id}
+     *
      * @param id 조회할 매장의 ID
      * @return 매장 상세 정보와 HTTP 상태 코드 200 (OK)
      */
@@ -58,6 +89,7 @@ public class StoreController {
     /**
      * 매장 이름으로 검색 API
      * GET /api/stores/search?name={name}
+     *
      * @param name 검색할 매장 이름
      * @return 검색된 매장 목록과 HTTP 상태 코드 200 (OK)
      */
@@ -67,28 +99,4 @@ public class StoreController {
         return ResponseEntity.ok(stores);
     }
 
-    /**
-     * 매장 수정 API
-     * PUT /api/stores/{id}
-     * @param id 수정할 매장의 ID
-     * @param storeDTO 수정할 매장 정보
-     * @return 수정된 매장 정보와 HTTP 상태 코드 200 (OK)
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<StoreDTO> updateStore(@PathVariable Long id, @RequestBody StoreDTO storeDTO) {
-        StoreDTO updatedStore = storeService.updateStore(id, storeDTO);
-        return ResponseEntity.ok(updatedStore);
-    }
-
-    /**
-     * 매장 삭제 API
-     * DELETE /api/stores/{id}
-     * @param id 삭제할 매장의 ID
-     * @return HTTP 상태 코드 204 (No Content)
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStore(@PathVariable Long id) {
-        storeService.deleteStore(id);
-        return ResponseEntity.noContent().build();
-    }
 }

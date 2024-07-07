@@ -55,6 +55,7 @@ public class ReservationController {
      * @param status 업데이트할 예약 상태
      * @return 업데이트된 예약 정보와 HTTP 상태 코드 200 (OK)
      */
+    @PreAuthorize("hasRole('PARTNER')")
     @PutMapping("/{id}/status")
     public ResponseEntity<ReservationDTO> updateReservationStatus(
             @PathVariable Long id,

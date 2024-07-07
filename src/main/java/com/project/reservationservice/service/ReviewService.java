@@ -29,13 +29,13 @@ public class ReviewService {
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
         // 예약 상태 확인(COMPLETED 상태일 떄만 리뷰 작성)
-        if(reservation.getStatus() != Reservation.ReservationStatus.COMPLETED) {
+        if (reservation.getStatus() != Reservation.ReservationStatus.COMPLETED) {
             throw new RuntimeException("Cannot write a review for uncompleted reservation");
         }
 
         // 회원 확인
         MemberEntity member = memberRepository.findById(reviewDTO.getMemberId())
-                .orElseThrow(()-> new RuntimeException("Member not found"));
+                .orElseThrow(() -> new RuntimeException("Member not found"));
 
         Review review = new Review();
         review.setReservation(reservation);
@@ -62,6 +62,7 @@ public class ReviewService {
         Review updatedReview = reviewRepository.save(review);
         return convertToDTO(updatedReview);
     }
+
     // 리뷰 삭제 (리뷰 작성자 또는 매장 관리자만 가능)
     public void deleteReview(Long reviewId, Long memberId, boolean isStoreManager) {
         Review review = reviewRepository.findById(reviewId)

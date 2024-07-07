@@ -54,6 +54,7 @@ public class StoreService {
                 .orElseThrow(() -> new RuntimeException("Store not found"));
         return convertToDTO(store);
     }
+
     public List<StoreDTO> searchStoresByName(String name) {
         List<Store> stores = storeRepository.findByStoreNameContainingIgnoreCase(name);
         return stores.stream()

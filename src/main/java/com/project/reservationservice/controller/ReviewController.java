@@ -25,6 +25,7 @@ public class ReviewController {
     /**
      * 리뷰 생성 API
      * POST /api/reviews
+     *
      * @param reviewDTO 생성할 리뷰 정보
      * @return 생성된 리뷰 정보와 상태코드 201 반환
      */
@@ -37,9 +38,10 @@ public class ReviewController {
     /**
      * 리뷰 수정 API
      * PUT /api/reviews/{id}?memberId={memberId}
-     * @param id 수정할 리뷰의 ID
+     *
+     * @param id        수정할 리뷰의 ID
      * @param reviewDTO 수정할 리뷰 정보
-     * @param memberId 리뷰를 수정하는 회원의 ID
+     * @param memberId  리뷰를 수정하는 회원의 ID
      * @return 수정된 리뷰 정보와 상태코드 200 반환
      */
     @PutMapping("/{id}")
@@ -53,8 +55,9 @@ public class ReviewController {
     /**
      * 리뷰 삭제 API
      * DELETE /api/reviews/{id}?memberId={memberId}&isStoreManager={isStoreManager}
-     * @param id 삭제할 리뷰의 ID
-     * @param memberId 리뷰를 삭제하는 회원의 ID
+     *
+     * @param id             삭제할 리뷰의 ID
+     * @param memberId       리뷰를 삭제하는 회원의 ID
      * @param isStoreManager 가게 관리자 여부
      * @return 삭제 성공 시 상태코드 204 반환
      */
@@ -69,6 +72,7 @@ public class ReviewController {
     /**
      * 가게별 리뷰 목록 조회 API
      * GET /api/reviews/store/{storeId}
+     *
      * @param storeId 조회할 가게의 ID
      * @return 가게별 리뷰 목록과 상태코드 200 반환
      */

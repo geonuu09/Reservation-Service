@@ -19,9 +19,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignUpRequestDTO signUpRequestDTO) {
-        log.info("회원가입 요청 : {}",signUpRequestDTO.getEmail());
+        log.info("회원가입 요청 : {}", signUpRequestDTO.getEmail());
         authService.signUp(signUpRequestDTO);
-        log.info("회원가입 성공 : {}",signUpRequestDTO.getEmail());
+        log.info("회원가입 성공 : {}", signUpRequestDTO.getEmail());
         return ResponseEntity.ok("회원가입 완료");
     }
 

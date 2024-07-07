@@ -19,7 +19,7 @@ public class ArrivalController {
      * 키오스크에서 고객 도착을 확인하는 엔드포인트
      * POST /api/arrival/confirm?kioskId={kioskId}&reservationId={reservationId}
      *
-     * @param kioskId 키오스크 ID (매장 ID와 동일)
+     * @param kioskId       키오스크 ID (매장 ID와 동일)
      * @param reservationId 예약 ID
      * @return 도착 확인 성공 여부에 대한 응답
      */

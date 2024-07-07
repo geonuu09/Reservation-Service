@@ -92,7 +92,6 @@ public class ReservationService {
     }
 
 
-
     // 특정 매장의 특정 시간대 예약 목록 조회
     public List<ReservationDTO> getReservationsForStore(Long storeId, LocalDate date) {
         return reservationRepository.findByStoreIdAndReservationDate(storeId, date)

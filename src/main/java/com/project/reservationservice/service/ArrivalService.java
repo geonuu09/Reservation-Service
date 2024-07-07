@@ -25,12 +25,12 @@ public class ArrivalService {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("reservation not found"));
         // 예약이 해당 매장의 것인지 확인
-        if(!reservation.getStore().getId().equals(store.getId())) {
+        if (!reservation.getStore().getId().equals(store.getId())) {
             throw new RuntimeException("reservation has wrong store");
         }
 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime reservationTime =  reservation.getReservationDateTime();
+        LocalDateTime reservationTime = reservation.getReservationDateTime();
 
         // 예약 시간 10분 전부터 도착 확인이 가능하도록 합니다.
         if (now.isBefore(reservationTime.minusMinutes(10))) {
